@@ -2,13 +2,14 @@ import json
 from app import *
 
 
-def load_json(filename):
-    with open(filename) as f:
-        return json.load(f)
+class Candidates:
+    def __init__(self):
+        pass
 
+    def load_json(self, filename, encoding='utf-8'):
+        with open(filename) as f:
+            return json.load(f)
 
-def load_candidates():
-    """ Загружает кандидатов из файла candidates.json в список """
-    return load_json('candidates.json')
-
-
+    def load_candidates(self):
+        """ Загружает кандидатов из файла candidates.json в список """
+        return load_json('candidates.json')
