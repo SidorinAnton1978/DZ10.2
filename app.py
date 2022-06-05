@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def page_main():
+    """ Главная страница"""
     candidates: list[dict] = load_candidates()
     all_candidates: str  = format_candidate(candidates)
     return all_candidates
@@ -12,6 +13,7 @@ def page_main():
 
 @app.route("/candidates/<int:id>")
 def page_id(id):
+    """ Страница кандидата"""
     candidate: dict = candidates_id(id)
     result: str = f'{candidates_picture(id)}\n{format_candidate([candidate])}'
     return result
@@ -19,6 +21,7 @@ def page_id(id):
 
 @app.route("/skills/<skill>")
 def page_skills(skill):
+    """ Список кандидатов по навыкам"""
     candidates: list[dict] = candidates_skills(skill)
     all_candidates: str = format_candidate(candidates)
     return all_candidates
