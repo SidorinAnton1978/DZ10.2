@@ -1,20 +1,28 @@
 from flask import Flask
+from utils import *
 app = Flask(__name__)
 
 
 @app.route("/")
-def page_index(candidate_list_formated):
-    return f'<pre>{candidate_list_formated}<pre>'
+def page_main():
+    candidates: list[dict] = load_candidates()
+    all_candidates: str  = format_candidate(candidates)
+    return all_candidates
 
 
-@app.route("/candidates/id")
-def page_id(candidate_id):
-    return f'<img src="(ссылка на картинку)">\n<pre>{candidate_id}<pre>'
+@app.route("/candidates/<int:id>")
+def page_id(id):
+    candidate: dict = candidates_id(id)
+    result: str = f'{candidates_picture(id)}\n{format_candidate([candidate])}'
+    return result
 
 
-@app.route("/skills/skill")
-def page_skill(candidate_skill):
-    return f'<pre>{candidate_skill}<pre>'
+@app.route("/skills/<skill>")
+def page_skills(skill):
+    candidates: list[dict] = candidates_skills(skill)
+    all_candidates: str = format_candidate(candidates)
+    return all_candidates
 
 
-app.run()
+if __name__ == '__main__':
+    app.run(debug=True)
